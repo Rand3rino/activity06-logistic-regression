@@ -6,3 +6,33 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+## Libraries
+```{r libraries, message=FALSE}
+library(tidyverse)
+library(tidymodels)
+```
+
+```{r Data}
+resume <- readr::read_csv("https://www.openintro.org/data/csv/resume.csv")
+```
+The variable of interest is `received_callback`, which is a binary variable.
+
+```{r target visualization}
+resume %>% 
+  ggplot(aes(x=received_callback==1)) + 
+  geom_bar() + 
+  theme_bw() + 
+  ylab("Count") + 
+  xlab("Received Call Back") + 
+  ggtitle("# of Received call Back")
+```
+
+```{r received_callback table}
+# TODO Add Percentages
+resume %>% 
+  select(received_callback) %>% 
+  group_by(received_callback) %>% 
+  summarise(n())
+```
+
