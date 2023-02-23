@@ -13,7 +13,8 @@ library(tidyverse)
 library(tidymodels)
 ```
 
-```{r Data}
+## The Data
+```{r Data, message=FALSE}
 resume <- readr::read_csv("https://www.openintro.org/data/csv/resume.csv")
 ```
 The variable of interest is `received_callback`, which is a binary variable.
@@ -28,11 +29,38 @@ resume %>%
   ggtitle("# of Received call Back")
 ```
 
-```{r received_callback table}
+```{r summary table}
 # TODO Add Percentages
 resume %>% 
-  select(received_callback) %>% 
   group_by(received_callback) %>% 
-  summarise(n())
+  summarise(n()) %>% 
+  knitr::kable()
 ```
+The probability of someone getting a call back from their resume is 8.05% or 392/(4478+392). The odds of someone getting a call back is 8.75% or 392/4478.
 
+## Logistic Regression
+```{r summary black/white}
+resume %>% 
+  group_by(received_callback, race) %>% 
+  summarise(n()) %>% 
+  knitr::kable()
+```
+The probability that a randomly selected résumé/person perceived as Black will be called back is 6.45%.
+The odds that a randomly selected résumé/person perceived as Black will be called back is 6.89%.
+
+### Logistic Model
+```{r logistic model}
+# The {tidymodels} method for logistic regression requires that the response be a factor variable
+resume <- resume %>% 
+  mutate(received_callback = as.factor(received_callback))
+
+resume_mod <- logistic_reg() %>%
+  set_engine("glm") %>%
+  fit(received_callback ~ race, data = resume, family = "binomial")
+
+tidy(resume_mod) %>% 
+  knitr::kable(digits = 3)
+```
+The regression equation corresponding to résumés/persons perceived as White is `received_callback = 0.438(racewhite) - 2.675`. 
+
+The *simplified* estimated regression equation corresponding to résumés/persons perceived as Black is `received_callback = ???? (raceblack) + 2.675``
