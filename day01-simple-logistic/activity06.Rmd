@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r libraries, message=FALSE}
 library(tidyverse)
 library(tidymodels)
+library(GGally)
 ```
 
 ## The Data
@@ -64,3 +65,70 @@ tidy(resume_mod) %>%
 The regression equation corresponding to résumés/persons perceived as White is `received_callback = 0.438(racewhite) - 2.675`. 
 
 The *simplified* estimated regression equation corresponding to résumés/persons perceived as Black is `received_callback = ???? (raceblack) + 2.675``
+
+## Multinomial Logistic Regression
+
+Select records in Chicago and select the relevant variables. Rename `gender` to `sex` and converts `race` to capital letters and `sex` to full words.
+```{r select variables and data in chicago}
+resume_select <- resume %>% 
+  rename(sex = gender) %>% 
+  filter(job_city == "Chicago") %>% 
+  mutate(race = case_when(
+         race == "white" ~ "White",
+         TRUE ~ "Black"
+       ),
+       sex = case_when(
+         sex == "f" ~ "female",
+         TRUE ~ "male"
+       )) %>% 
+  select(received_callback, years_experience, race, sex)
+```
+
+## Relationship Exploration
+
+There is a visible difference between callbacks for `race` and `sex`.
+```{r relationship exploration}
+resume_select %>% 
+  ggbivariate(outcome = "received_callback") + 
+  theme_bw()
+```
+
+## Fitting the Model
+```{r fit model}
+mult_log_mod <- glm(received_callback ~ years_experience + race + sex, data = resume_select, family = "binomial")
+
+tidy(mult_log_mod) %>% 
+  knitr::kable(digits = 3)
+```
+
+```{r odds}
+tidy(mult_log_mod, exponentiate = TRUE) %>% 
+  knitr::kable(digits = 3)
+```
+For each additional year of experience for an applicant in Chicago, we expect the odds of an applicant receiving a call back to increase by 1.046%. Assuming applicants have similar time in spent in college, similar inferred races, and similar inferred sex.
+
+
+## Assessing Model Fit
+```{r assess model fit}
+# To store residuals and create row number variable
+mult_log_aug <- augment(mult_log_mod, type.predict = "response", 
+                      type.residuals = "deviance") %>% 
+                      mutate(id = row_number())
+
+# Plot residuals vs fitted values
+ggplot(data = mult_log_aug, aes(x = .fitted, y = .resid)) + 
+geom_point() + 
+geom_hline(yintercept = 0, color = "red") + 
+labs(x = "Fitted values", 
+     y = "Deviance residuals", 
+     title = "Deviance residuals vs. fitted")
+
+# Plot residuals vs row number
+ggplot(data = mult_log_aug, aes(x = id, y = .resid)) + 
+geom_point() + 
+geom_hline(yintercept = 0, color = "red") + 
+labs(x = "id", 
+     y = "Deviance residuals", 
+     title = "Deviance residuals vs. id")
+```
+

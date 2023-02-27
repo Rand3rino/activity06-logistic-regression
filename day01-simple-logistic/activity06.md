@@ -6,6 +6,7 @@ Activity 6 - Logistic Regression
 ``` r
 library(tidyverse)
 library(tidymodels)
+library(GGally)
 ```
 
 ## The Data
@@ -95,3 +96,64 @@ White is `received_callback = 0.438(racewhite) - 2.675`.
 The *simplified* estimated regression equation corresponding to
 résumés/persons perceived as Black is \`received\_callback = ????
 (raceblack) + 2.675\`\`
+
+## Multinomial Logistic Regression
+
+Select records in Chicago and select the relevant variables. Rename
+`gender` to `sex` and converts `race` to capital letters and `sex` to
+full words.
+
+``` r
+resume_select <- resume %>% 
+  rename(sex = gender) %>% 
+  filter(job_city == "Chicago") %>% 
+  mutate(race = case_when(
+         race == "white" ~ "White",
+         TRUE ~ "Black"
+       ),
+       sex = case_when(
+         sex == "f" ~ "female",
+         TRUE ~ "male"
+       )) %>% 
+  select(received_callback, years_experience, race, sex)
+```
+
+## Relationship Exploration
+
+There is a visible difference between callbacks for `race` and `sex`.
+
+``` r
+resume_select %>% 
+  ggbivariate(outcome = "received_callback") + 
+  theme_bw()
+```
+
+![](activity06_files/figure-gfm/relationship%20exploration-1.png)<!-- -->
+
+## Fitting the Model
+
+``` r
+mult_log_mod <- glm(received_callback ~ years_experience + race + sex, data = resume_select, family = "binomial")
+
+tidy(mult_log_mod) %>% 
+  knitr::kable(digits = 3)
+```
+
+| term              | estimate | std.error | statistic | p.value |
+|:------------------|---------:|----------:|----------:|--------:|
+| (Intercept)       |   -3.279 |     0.181 |   -18.082 |   0.000 |
+| years\_experience |    0.045 |     0.016 |     2.751 |   0.006 |
+| raceWhite         |    0.426 |     0.157 |     2.720 |   0.007 |
+| sexmale           |    0.580 |     0.203 |     2.857 |   0.004 |
+
+``` r
+tidy(mult_log_mod, exponentiate = TRUE) %>% 
+  knitr::kable(digits = 3)
+```
+
+| term              | estimate | std.error | statistic | p.value |
+|:------------------|---------:|----------:|----------:|--------:|
+| (Intercept)       |    0.038 |     0.181 |   -18.082 |   0.000 |
+| years\_experience |    1.046 |     0.016 |     2.751 |   0.006 |
+| raceWhite         |    1.532 |     0.157 |     2.720 |   0.007 |
+| sexmale           |    1.786 |     0.203 |     2.857 |   0.004 |
