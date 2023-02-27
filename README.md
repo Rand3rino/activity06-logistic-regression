@@ -143,61 +143,78 @@ Read these directions first, then work through them.
 The rest of this `README` document contains tasks/directions for the
 second class meeting of this week.
 
-<!-- ## Task 3: Updating your forked GitHub repo
+## Task 3: Updating your forked GitHub repo
 
-You will need to start reading these directions back at my `gvsu-sta631/activity06-logistic-regression` GitHub repo **and** have your forked `username/activity06-logistic-regression` GitHub repo handy.
-I recommend that you have my repo opened on one half of your screen and your repo opened on the other half.
-Read these directions first, then work through them.
+You will need to start reading these directions back at my
+`gvsu-sta631/activity06-logistic-regression` GitHub repo **and** have
+your forked `username/activity06-logistic-regression` GitHub repo handy.
+I recommend that you have my repo opened on one half of your screen and
+your repo opened on the other half. Read these directions first, then
+work through them.
 
-1. At the top of your `username/activity06-logistic-regression` repo (above the repo contents section), verify that you see a message that looks something like:
-  
-  > This branch is X commits behind gvsu-sta631:main.
-  
-2. Click on the hyperlinked "X commits behind" portion of that message to be taken to a **Comparing changes** page.
-3. Verify that your drop-down menu options specify:
+1.  At the top of your `username/activity06-logistic-regression` repo
+    (above the repo contents section), verify that you see a message
+    that looks something like:
+
+> This branch is X commits behind gvsu-sta631:main.
+
+2.  Click on the hyperlinked “X commits behind” portion of that message
+    to be taken to a **Comparing changes** page.
+3.  Verify that your drop-down menu options specify:
     - base repository: username/activity06-logistic-regression
     - base: main
     - head repository: gvsu-sta631/activity06-logistic-regression
     - compare: main
-4. Also verify that you have a message directly below this that says:
+4.  Also verify that you have a message directly below this that says:
 
-  > &check; Able to merge. These branches can be automatically merged.
-  
-  Flag me if you see something different.
+> ✓ Able to merge. These branches can be automatically merged.
 
-5. Click on the green **Create pull request** button under this previous message.
-  Note you can look at the changes that I made, if you so desire, by scrolling down.
-  However, this is not necessary.
-6. On the next page, provide a short descriptive message in the "Title" box (e.g., "Adding Day 2 materials").
-  You can also provide a more detailed message in the "Leave a comment" box if you choose.
-7. Click on the green **Create pull request** button.
-8. On the next screen which is titled the same thing as what you provided in the "Title" box on the previous screen, you will be presented with a bunch of information.
-  If you scroll down a little, you should see a green check mark with a message that specifies:
-  
-  > This branch has no conflicts with the base branch
-  
-  And you can click on the green **Merge pull request**.
-  
-9. You will be provided with with an opportunity to provide another meaningful message (or accept the default message).
-  Finally, click on the green **Confirm merge** button.
-  You can now work directly from your `username/activity06-logistic-regression` repo.
-  
+Flag me if you see something different.
+
+5.  Click on the green **Create pull request** button under this
+    previous message. Note you can look at the changes that I made, if
+    you so desire, by scrolling down. However, this is not necessary.
+6.  On the next page, provide a short descriptive message in the “Title”
+    box (e.g., “Adding Day 2 materials”). You can also provide a more
+    detailed message in the “Leave a comment” box if you choose.
+7.  Click on the green **Create pull request** button.
+8.  On the next screen which is titled the same thing as what you
+    provided in the “Title” box on the previous screen, you will be
+    presented with a bunch of information. If you scroll down a little,
+    you should see a green check mark with a message that specifies:
+
+> This branch has no conflicts with the base branch
+
+And you can click on the green **Merge pull request**.
+
+9.  You will be provided with with an opportunity to provide another
+    meaningful message (or accept the default message). Finally, click
+    on the green **Confirm merge** button. You can now work directly
+    from your `username/activity06-logistic-regression` repo.
+
 In summary, what you just did is pulled my changes into your repository.
-Git and GitHub refer to this as a "pull request" because you are asking to pull items into your repo.
+Git and GitHub refer to this as a “pull request” because you are asking
+to pull items into your repo.
 
-## Task 4: Interaction terms and other considerations
+## Task 4: Mulitplie logistic regression
 
-You will continue to work in your `activity04.Rmd` file that you started during Day 1 of this activity.
-Read these directions first, then work through them.
+You will continue to work in your `activity06.Rmd` file that you started
+during Day 1 of this activity. Read these directions first, then work
+through them.
 
-1. In your `activity06-logistic-regression` repo folder/directory, locate and click into the `day02-interactions` subfolder.
-2. In the `day02-interactions` subfolder, you will be greeted by a new `README.md` file.
-  Do your best to complete the tasks/directions provide in this subfolder by **11:59 pm (EST) on Thu, Feb 9**.
-3. Ask questions in class as you are working. If you need to finish this up outside of our class meetings, remember that you can use our Teams workspace (linked on Blackboard), and post questions/issues in the **Muddy** channel.
-  If someone else already posted what you though was muddy, add any clarification to their post and give them a "+ 1" 👍.
-  Remember that this space is for conversations as well as posting questions.
-  Read through your peers' muddy posts and do your best to provide help.
--->
+1.  In your `activity06-logistic-regression` repo folder/directory,
+    locate and click into the `day02-multiple-logistic` subfolder.
+2.  In the `day02-multiple-logistic` subfolder, you will be greeted by a
+    new `README.md` file. Do your best to complete the tasks/directions
+    provide in this subfolder by **11:59 pm (EST) on Thu, Feb 23**.
+3.  Ask questions in class as you are working. If you need to finish
+    this up outside of our class meetings, remember that you can use our
+    Teams workspace (linked on Blackboard), and post questions/issues in
+    the **Muddy** channel. If someone else already posted what you
+    though was muddy, add any clarification to their post and give them
+    a “+ 1” 👍. Remember that this space is for conversations as well as
+    posting questions. Read through your peers’ muddy posts and do your
+    best to provide help.
 
 ## Attribution
 
